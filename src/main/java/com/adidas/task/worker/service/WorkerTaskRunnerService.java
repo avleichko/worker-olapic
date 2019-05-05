@@ -55,8 +55,10 @@ public class WorkerTaskRunnerService implements CommandLineRunner, TaskExecution
     //@AfterTask can be done instead of implements TaskExecutionListener
     @Override
     public void onTaskEnd(TaskExecution taskExecution) {
-        System.out.println(taskExecution.toString());
         System.out.println("TAsk Listener On task end");
+        log.info("Task Listener before teask execution");
+        final ResponseEntity<String> forEntity = restTemplate.getForEntity("http://localhost:8080/workerEnd", String.class);
+        log.info(forEntity.toString());
     }
 
     //@FailedTask can be done instead of implements TaskExecutionListener

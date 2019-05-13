@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="2 seconds">
+
+    <springProfile name="dev | stg | prod">
+        <springProperty name="team" source="spring.application.team"/>
+        <springProperty name="service" source="spring.application.service"/>
+        <springProperty name="application" source="spring.application.name"/>
+        <springProperty name="component" source="spring.application.component"/>
+
+        <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <includeContext>false</includeContext>
+                <customFields>
+                    {"hostname": "${K8S_SERVICE_HOSTNAME}",
+                    "team": "${team}",
+                    "service": "${service}",
+                    "application": "${application}",
+                    "app_version": "${APP_VERSION}",
+                    "component": "${component}",
+                    "environment": "${ENVIRONMENT}",
+                    "my_index": "${application}-${ENVIRONMENT}",
+                    "my_type": "${application}_general-log"}
+                </customFields>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="consoleAppender"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="!dev &amp; !stg &amp; !prod">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] slf4j%X{context} - ${PID} %5p [%t] --- %c{1}: %m%n</pattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+</configuration>

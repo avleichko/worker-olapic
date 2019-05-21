@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="article">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="model-id" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="division-code" type="xsd:byte">
+                </xsd:element>
+                <xsd:element name="division" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="display-name" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="short-description" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="bullets">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="bullet" minOccurs="0" maxOccurs="unbounded"
+                                         type="xsd:string">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="online" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="online-from" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="online-to" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="category-id" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="secondary-categories">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="category" minOccurs="0" maxOccurs="unbounded"
+                                         type="xsd:string">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="collections">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="collection" minOccurs="0" maxOccurs="unbounded"
+                                         type="xsd:string">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="technologies">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="technology" minOccurs="0" maxOccurs="unbounded"
+                                         type="xsd:string">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="functions">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="function" minOccurs="0" maxOccurs="unbounded"
+                                         type="xsd:string">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="gender" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="sub-gender" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="sports">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="sport" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="sport-sub" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="sport-sub-sub" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="product-type" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="product-category" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="product-filters">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="product-filter" type="xsd:string">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="type" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="review">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="rating" type="xsd:float">
+                            </xsd:element>
+                            <xsd:element name="count" type="xsd:byte">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="customizable" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="exclusive" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="search-color" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="color" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="image" type="xsd:anyURI">
+                </xsd:element>
+                <xsd:element name="age" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="partner" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="product-line-style" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="best-for" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="surface" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="foot-type" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="activity" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="frequency" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="keywords" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="personalization" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="do-not-recommend" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="outlet" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="stock" type="xsd:byte">
+                </xsd:element>
+                <xsd:element name="size-range" type="xsd:byte">
+                </xsd:element>
+                <xsd:element name="price">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="currency" type="xsd:string">
+                            </xsd:element>
+                            <xsd:element name="district" minOccurs="0" maxOccurs="9">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="name" type="xsd:string">
+                                        </xsd:element>
+                                        <xsd:element name="current-price" type="xsd:float">
+                                        </xsd:element>
+                                        <xsd:element name="original-price" type="xsd:float">
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="membersonly-price" type="xsd:float">
+                            </xsd:element>
+                            <xsd:element name="cost-price" minOccurs="0" maxOccurs="1" type="xsd:float">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="new" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="sale" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="discount-amount" type="xsd:byte">
+                </xsd:element>
+                <xsd:element name="links-from">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="link" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="links-to">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="link" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="product" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="url" type="xsd:anyURI">
+                            </xsd:element>
+                            <xsd:element name="stock" type="xsd:byte">
+                            </xsd:element>
+                            <xsd:element name="size" type="xsd:string">
+                            </xsd:element>
+                            <xsd:element name="search-size" type="xsd:string">
+                            </xsd:element>
+                            <xsd:element name="preorder-backorder-handling" type="xsd:string">
+                            </xsd:element>
+                            <xsd:element name="preorder-backorder-allocation" type="xsd:string">
+                            </xsd:element>
+                            <xsd:element name="in-stock-date" type="xsd:string">
+                            </xsd:element>
+                        </xsd:sequence>
+                        <xsd:attribute name="id" type="xsd:string">
+                        </xsd:attribute>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="previewTo" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="coming-soon" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="Promotion" type="xsd:string">
+                </xsd:element>
+                <xsd:element name="Flashproduct" type="xsd:string">
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:string">
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+

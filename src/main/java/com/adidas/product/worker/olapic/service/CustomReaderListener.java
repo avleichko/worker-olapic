@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 public class CustomReaderListener implements ItemReadListener<FlatArticleMap> {
     private static final Logger LOG = LoggerFactory.getLogger(CustomReaderListener.class);
 
-    private final KafkaPublisher<String> kafkaPublisher;
+    private final KafkaPublisher kafkaPublisher;
 
-    public CustomReaderListener(final KafkaPublisher<String> kafkaPublisher) {
+    public CustomReaderListener(final KafkaPublisher kafkaPublisher) {
         this.kafkaPublisher = kafkaPublisher;
     }
 
@@ -28,6 +28,6 @@ public class CustomReaderListener implements ItemReadListener<FlatArticleMap> {
 
     @Override
     public void onReadError(Exception ex) {
-        kafkaPublisher.error(ex.getMessage());
+        kafkaPublisher.error(ex);
     }
 }

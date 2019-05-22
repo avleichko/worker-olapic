@@ -1,11 +1,18 @@
 package com.adidas.product.worker.olapic.service;
 
-public interface KafkaPublisher<T> {
+import com.adidas.product.worker.schema.WorkerLaunch;
+import org.springframework.batch.core.JobExecution;
 
-    void error(T message);
+public interface KafkaPublisher {
 
-    void result(T message);
+    void error(Exception exception);
 
-    void launch(T message);
+    void error(String errorMessage);
+
+    void result(JobExecution execution, String jobFlow);
+
+    void result(String jobFlow);
+
+    void launch(WorkerLaunch message);
 
 }

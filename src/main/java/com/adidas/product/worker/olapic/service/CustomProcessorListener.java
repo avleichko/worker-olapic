@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 public class CustomProcessorListener implements ItemProcessListener<Object, Object> {
     private static final Logger LOG = LoggerFactory.getLogger(CustomProcessorListener.class);
 
-    private final KafkaPublisher<String> kafkaPublisher;
+    private final KafkaPublisher kafkaPublisher;
 
-    public CustomProcessorListener(final KafkaPublisher<String> kafkaPublisher) {
+    public CustomProcessorListener(final KafkaPublisher kafkaPublisher) {
         this.kafkaPublisher = kafkaPublisher;
     }
 
@@ -33,6 +33,6 @@ public class CustomProcessorListener implements ItemProcessListener<Object, Obje
     @Override
     @OnProcessError
     public void onProcessError(Object item, Exception e) {
-        kafkaPublisher.error(e.getMessage());
+        kafkaPublisher.error(e);
     }
 }

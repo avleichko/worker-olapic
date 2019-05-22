@@ -22,4 +22,4 @@ aurora:
     driver: com.mysql.cj.jdbc.Driver
 
 server:
-  port: 8081
+  port: 8090

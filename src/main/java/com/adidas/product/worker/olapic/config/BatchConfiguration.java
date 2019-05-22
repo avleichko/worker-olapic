@@ -29,7 +29,6 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.database.Order;
@@ -84,7 +83,7 @@ public class BatchConfiguration {
     private ArticleConverter articleConverter;
 
     @Autowired
-    private KafkaPublisher<String> kafkaPublisher;
+    private KafkaPublisher kafkaPublisher;
 
     @Autowired
     private Marshaller marshaller;
@@ -110,8 +109,7 @@ public class BatchConfiguration {
     }
 
     @Bean(name = OLAPIC_STEP)
-    public Step olapicStep(@Qualifier("xmlWriter") final ItemWriter<Article> writer,
-                           @Qualifier("processors") final ItemProcessor<FlatArticle, Article> processors) {
+    public Step olapicStep(@Qualifier("processors") final ItemProcessor<FlatArticle, Article> processors) {
         return steps.get(OLAPIC_STEP)
                 .<FlatArticle, Article>chunk(CHUNK_SIZE)
                 .reader(pagingReader(null, null, null))
@@ -119,7 +117,7 @@ public class BatchConfiguration {
                 .listener(processListener())
                 .listener(writeListener())
                 .processor(processors)
-                .writer(writer)
+                .writer(xmlWriter(""))
                 .build();
     }
 
@@ -182,7 +180,7 @@ public class BatchConfiguration {
 
         parameters.put("1", brand);
         parameters.put("2", locale);
-        parameters.put("3", type);
+//        parameters.put("3", type);
 
         return parameters;
     }
@@ -224,17 +222,17 @@ public class BatchConfiguration {
 
     @Bean(name = "flatXml")
     protected XmlItemDelegator flatXmlItemWriter() {
-        return new XmlItemDelegator(xmlWriter());
+        return new XmlItemDelegator(xmlWriter(""));
     }
 
     @Bean
     @StepScope
-    protected StaxEventItemWriter<Article> xmlWriter() {
+    protected StaxEventItemWriter<Article> xmlWriter(@Value("#{jobParameters[locale]}") String locale) {
         return new StaxEventItemWriterBuilder<Article>()
                 .name("olapicXmlWriter")
                 .rootTagName(ROOT_XML)
                 .marshaller(marshaller)
-                .resource(new FileSystemResource("output.xml"))
+                .resource(new FileSystemResource(System.currentTimeMillis() + "_" + locale + "_output.xml"))
                 .build();
     }
 }

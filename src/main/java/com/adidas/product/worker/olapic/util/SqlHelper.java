@@ -60,8 +60,8 @@ public final class SqlHelper {
 
     public static final String FETCH_ARTICLE_WHERE = "where ad.brand_code = ? \n" +
             "and ed.locale = ? \n" +
-            "and ed.online_to >= current_timestamp()\n" +
-            "and ad.type = ?\n";
+            "and ed.online_to >= current_timestamp()\n";
+//            "and ad.type = ?\n";
 
     public static final String FETCH_ARTICLE_GROUP = "group by article_number";
 

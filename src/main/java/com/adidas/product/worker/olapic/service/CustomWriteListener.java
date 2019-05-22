@@ -16,9 +16,9 @@ import java.util.Optional;
 public class CustomWriteListener implements ItemWriteListener<ArticleModel> {
     private static final Logger LOG = LoggerFactory.getLogger(CustomWriteListener.class);
 
-    private final KafkaPublisher<String> kafkaPublisher;
+    private final KafkaPublisher kafkaPublisher;
 
-    public CustomWriteListener(final KafkaPublisher<String> kafkaPublisher) {
+    public CustomWriteListener(final KafkaPublisher kafkaPublisher) {
         this.kafkaPublisher = kafkaPublisher;
     }
 
@@ -32,12 +32,12 @@ public class CustomWriteListener implements ItemWriteListener<ArticleModel> {
     @AfterWrite
     public void afterWrite(List<? extends ArticleModel> items) {
         int count = Optional.ofNullable(items).map(List::size).orElse(0);
-        kafkaPublisher.result(count + " were processed successfully");
+        kafkaPublisher.result(count + " items were written to xml");
     }
 
     @Override
     @OnWriteError
     public void onWriteError(Exception exception, List<? extends ArticleModel> items) {
-        kafkaPublisher.error(exception.getMessage());
+        kafkaPublisher.error(exception);
     }
 }

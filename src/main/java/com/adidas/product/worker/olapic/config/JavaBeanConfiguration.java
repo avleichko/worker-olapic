@@ -3,7 +3,7 @@ package com.adidas.product.worker.olapic.config;
 import com.adidas.product.worker.olapic.converter.CDataEscapeHandler;
 import com.adidas.product.worker.olapic.domain.ObjectFactory;
 import com.adidas.product.worker.olapic.service.KafkaPublisher;
-import com.adidas.product.worker.olapic.service.StringKafkaPublisher;
+import com.adidas.product.worker.olapic.service.AvroKafkaPublisher;
 import com.sun.xml.internal.bind.marshaller.CharacterEscapeHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -78,8 +78,8 @@ public class JavaBeanConfiguration {
     }
 
     @Bean
-    public KafkaPublisher<String> kafkaPublisher() {
-        return new StringKafkaPublisher();
+    public KafkaPublisher kafkaPublisher() {
+        return new AvroKafkaPublisher();
     }
 
     @Bean

@@ -1,8 +1,10 @@
 package com.adidas.product.worker.olapic.controller;
 
+import com.adidas.product.worker.schema.WorkerLaunch;
 import com.adidas.product.worker.olapic.config.BatchConfiguration;
+import com.adidas.product.worker.olapic.exception.InvalidParameterException;
 import com.adidas.product.worker.olapic.service.KafkaPublisher;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -17,6 +19,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
 @KafkaListener(containerFactory = "concurrentListener", topics = "worker-launcher")
@@ -32,32 +35,37 @@ public class KafkaFrontController {
     private Job job;
 
     @Autowired
-    private KafkaPublisher<String> kafkaPublisher;
+    private KafkaPublisher kafkaPublisher;
 
-    @KafkaHandler(isDefault = true)
-    public void acceptDefaultMessage(String input) throws Exception {
+    @KafkaHandler
+    public void handleLaunch(final WorkerLaunch message) {
         try {
-            if (input == null) {
-                return;
-            }
-            if (input.contains("run job")) {
-                LOG.info("Running job '{}'", input);
-                jobLauncher.run(job, jobParameters(input));
-            } else {
-                LOG.info("Got message '{}'", input);
-            }
+            jobLauncher.run(job, jobParameters(message));
         } catch (Exception e) {
             LOG.error("Exception has occurred", e);
-            kafkaPublisher.error(e.getMessage());
+            kafkaPublisher.error(e);
         }
     }
 
-    private JobParameters jobParameters(String input) {
+    @KafkaHandler(isDefault = true)
+    public void acceptDefaultMessage(Object input) {
+        LOG.info("Got unknown message '{}'", input);
+    }
+
+    private JobParameters jobParameters(WorkerLaunch input) {
         return new JobParametersBuilder()
                 .addDate("date", new Date())
-                .addParameter("locale", new JobParameter(StringUtils.substringBetween(input, "locale", ";").trim()))
-                .addParameter("brand_code", new JobParameter(StringUtils.substringBetween(input, "brand_code", ";").trim()))
-                .addParameter("type", new JobParameter(StringUtils.substringBetween(input, "type", ";").trim()))
+                .addParameter("locale", new JobParameter(resolveLocale(input.getLocale())))
+                .addParameter("brand_code", new JobParameter(input.getBrand()))
+                // TODO rid of inline as job parameter
+                .addParameter("type", new JobParameter("inline"))
                 .toJobParameters();
+    }
+
+    private String resolveLocale(List<String> list) {
+        return CollectionUtils.emptyIfNull(list)
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new InvalidParameterException("Locale must be present"));
     }
 }
